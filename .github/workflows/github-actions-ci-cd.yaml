@@ -1,0 +1,175 @@
+name: CI/CD
+
+on:
+  push:
+    branches:
+      - "**"
+
+  workflow_dispatch:
+    inputs:
+      run_release:
+        description: "Create GitHub release after coverage"
+        required: false
+        default: false
+        type: boolean
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup uv
+        uses: astral-sh/setup-uv@v6
+
+      - name: Setup Python
+        run: uv python install
+
+      - name: Sync dependencies
+        run: uv sync
+
+      - name: Install Playwright browsers
+        run: install-playwright-browsers
+
+  tests:
+    name: Tests
+    runs-on: ubuntu-latest
+    needs: build
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup uv
+        uses: astral-sh/setup-uv@v6
+
+      - name: Setup Python
+        run: uv python install
+
+      - name: Sync dependencies
+        run: uv sync
+
+      - name: Install Playwright browsers
+        run: install-playwright-browsers
+
+      - name: Run tests
+        run: |
+          uv run pytest --cov=. --cov-report=xml
+
+      - name: Upload coverage artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-xml
+          path: coverage.xml
+
+  publish:
+    name: Publish Version
+    runs-on: ubuntu-latest
+    needs: tests
+
+    if: |
+      github.ref == 'refs/heads/master' &&
+      github.actor != 'github-actions[bot]'
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup uv
+        uses: astral-sh/setup-uv@v6
+
+      - name: Setup Python
+        run: uv python install
+
+      - name: Sync dependencies
+        run: uv sync
+
+      - name: Configure Git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: Bump version and changelog
+        run: |
+          cz bump --yes --changelog
+
+      - name: Get latest version tag
+        id: version
+        run: |
+          VERSION_TAG=$(git describe --tags --abbrev=0)
+          echo "VERSION_TAG=$VERSION_TAG" >> $GITHUB_ENV
+          echo "version_tag=$VERSION_TAG" >> $GITHUB_OUTPUT
+
+      - name: Commit bumped version
+        run: |
+          git add .
+          git commit -m "bump version to ${VERSION_TAG}" || echo "No changes to commit"
+
+      - name: Push commits and tags
+        run: |
+          git push
+          git push --tags
+
+  codecov:
+    name: Upload Coverage
+    runs-on: ubuntu-latest
+    needs: tests
+
+    if: |
+      github.event_name == 'workflow_dispatch' &&
+      github.event.inputs.run_release == 'true'
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Download coverage artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: coverage-xml
+
+      - name: Upload to Codecov
+        uses: codecov/codecov-action@v5
+        with:
+          files: coverage.xml
+          fail_ci_if_error: true
+
+  release:
+    name: Create GitHub Release
+    runs-on: ubuntu-latest
+    needs: codecov
+
+    if: |
+      github.event_name == 'workflow_dispatch' &&
+      github.event.inputs.run_release == 'true'
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Get latest tag
+        id: tag
+        run: |
+          TAG=$(git describe --tags --abbrev=0)
+          echo "tag=$TAG" >> $GITHUB_OUTPUT
+
+      - name: Create release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ steps.tag.outputs.tag }}
+          release_name: ${{ steps.tag.outputs.tag }}
+          draft: false
+          prerelease: false

@@ -1,0 +1,41 @@
+[project]
+name = "queens-solver"
+version = "0.0.9000"
+description = "Solver for Queens game"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "beautifulsoup4>=4.14.3",
+    "colorama>=0.4.6",
+    "numpy>=2.4.4",
+    "playwright>=1.59.0",
+    "scipy>=1.17.1",
+]
+
+[dependency-groups]
+dev = [
+    "commitizen>=4.15.1",
+    "pre-commit>=4.6.0",
+    "pytest>=9.0.3",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project.scripts]
+queens-solver = "queens_solver.main:run"
+install-playwright-browsers = "queens_solver.setup:install_playwright_browsers"
+
+[tool.ruff.lint]
+select = ["I", "E", "F", "B", "U"]
+fixable = ["ALL"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.commitizen]
+name = "cz_conventional_commits"
+version_provider = "pep621"
+tag_format = "v$version"
+update_changelog_on_bump = true
