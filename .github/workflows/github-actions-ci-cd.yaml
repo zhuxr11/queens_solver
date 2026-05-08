@@ -56,11 +56,11 @@ jobs:
         run: uv sync
 
       - name: Install Playwright browsers
-        run: uv run python -m playwright install chromium
+        run: uv run install-playwright-browsers
 
       - name: Run tests
         run: |
-          uv run install-playwright-browsers
+          uv run pytest -rP --log-cli-level=INFO --cov=. --cov-report=xml
 
       - name: Upload coverage artifact
         uses: actions/upload-artifact@v7
