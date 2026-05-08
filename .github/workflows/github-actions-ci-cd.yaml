@@ -60,7 +60,7 @@ jobs:
 
       - name: Run tests
         run: |
-          uv run pytest --cov=. --cov-report=xml
+          uv run pytest -rP --log-cli-level=INFO --cov=. --cov-report=xml
 
       - name: Upload coverage artifact
         uses: actions/upload-artifact@v7
