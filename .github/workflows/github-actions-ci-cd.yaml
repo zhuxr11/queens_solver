@@ -131,6 +131,7 @@ jobs:
       - name: Rebase dev onto master
         if: steps.check_dev.outputs.exists == 'true'
         run: |
+          git fetch origin master
           git fetch origin dev
           git checkout dev
           git rebase origin/master
