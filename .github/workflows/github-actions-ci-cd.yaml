@@ -116,8 +116,8 @@ jobs:
 
       - name: Push commits and tags
         run: |
-          git push
-          git push --tags
+          git push https://x-access-token:${{ secrets.PAT_TOKEN }}@github.com/${{ github.repository }} HEAD:master
+          git push --tags https://x-access-token:${{ secrets.PAT_TOKEN }}@github.com/${{ github.repository }} HEAD:refs/tags/*
 
       - name: Check if dev branch exists
         id: check_dev
