@@ -35,7 +35,7 @@ jobs:
         run: uv sync
 
       - name: Install Playwright browsers
-        run: uv run python -m playwright install chromium
+        run: uv run install-playwright-browsers
 
   tests:
     name: Tests
@@ -60,7 +60,7 @@ jobs:
 
       - name: Run tests
         run: |
-          uv run pytest -rP --log-cli-level=INFO --cov=. --cov-report=xml
+          uv run install-playwright-browsers
 
       - name: Upload coverage artifact
         uses: actions/upload-artifact@v7
@@ -100,7 +100,7 @@ jobs:
 
       - name: Bump version and changelog
         run: |
-          cz bump --yes --changelog
+          uv run cz bump --yes --changelog
 
       - name: Get latest version tag
         id: version
