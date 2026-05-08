@@ -5,13 +5,7 @@ on:
     branches:
       - "**"
 
-  workflow_dispatch:
-    inputs:
-      run_release:
-        description: "Create GitHub release after coverage"
-        required: false
-        default: false
-        type: boolean
+  workflow_dispatch: {}
 
 permissions:
   contents: write
@@ -74,8 +68,7 @@ jobs:
     needs: tests
 
     if: |
-      github.ref == 'refs/heads/master' &&
-      github.actor != 'github-actions[bot]'
+      github.ref == 'refs/heads/master'
 
     steps:
       - name: Checkout
@@ -143,9 +136,7 @@ jobs:
     needs: publish
 
     if: |
-      github.ref == 'refs/heads/master' &&
-      github.event_name == 'workflow_dispatch' &&
-      github.event.inputs.run_release == 'true'
+      github.event_name == 'workflow_dispatch'
 
     steps:
       - name: Checkout
