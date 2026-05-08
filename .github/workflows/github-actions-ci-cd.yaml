@@ -119,6 +119,23 @@ jobs:
           git push
           git push --tags
 
+      - name: Check if dev branch exists
+        id: check_dev
+        run: |
+          if git ls-remote --exit-code --heads origin dev; then
+            echo "exists=true" >> $GITHUB_OUTPUT
+          else
+            echo "exists=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Rebase dev onto master
+        if: steps.check_dev.outputs.exists == 'true'
+        run: |
+          git fetch origin dev
+          git checkout dev
+          git rebase origin/master
+          git push origin dev
+
   codecov:
     name: Upload Coverage
     runs-on: ubuntu-latest
