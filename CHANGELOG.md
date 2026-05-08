@@ -1,3 +1,10 @@
+## v0.1.1 (2026-05-08)
+
+### Fix
+
+- **.github.workflows.github-actions-ci-cd**: Remove step "codecov" and set "release" go after "publish", triggered manually, since bot-created pushes do NOT trigger actions.
+- **.github.workflows.github-actions-ci-cd**: Fix a bug when rebasing dev to master in "publish" step.
+
 ## v0.1.0 (2026-05-08)
 
 ### Feat
