@@ -1,3 +1,9 @@
+## v0.1.2 (2026-05-08)
+
+### Fix
+
+- **.github.workflows.github-actions-ci-cd**: Remove criteria about bot-triggered commits and "run_release" variable from "workflow_dispatch".
+
 ## v0.1.1 (2026-05-08)
 
 ### Fix
