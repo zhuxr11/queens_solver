@@ -68,8 +68,7 @@ jobs:
     needs: tests
 
     if: |
-      github.ref == 'refs/heads/master' &&
-      github.actor != 'github-actions[bot]'
+      github.ref == 'refs/heads/master'
 
     steps:
       - name: Checkout
@@ -77,6 +76,18 @@ jobs:
         with:
           fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Check commit author
+        id: author
+        run: |
+          AUTHOR=$(git log -1 --pretty=format:'%an')
+          echo "author=$AUTHOR" >> $GITHUB_OUTPUT
+
+      - name: Stop if commit is from bot
+        if: steps.author.outputs.author == 'github-actions[bot]'
+        run: |
+          echo "Commit authored by github-actions[bot], skipping publish."
+          exit 0
 
       - name: Setup uv
         uses: astral-sh/setup-uv@v8.1.0
@@ -138,7 +149,6 @@ jobs:
 
     if: |
       github.event_name == 'workflow_dispatch' &&
-      github.actor == 'github-actions[bot]' &&
       startsWith(github.ref, 'refs/tags/v')
 
     steps:
@@ -146,6 +156,18 @@ jobs:
         uses: actions/checkout@v6
         with:
           fetch-depth: 0
+
+      - name: Check commit author
+        id: author
+        run: |
+          AUTHOR=$(git log -1 --pretty=format:'%an')
+          echo "author=$AUTHOR" >> $GITHUB_OUTPUT
+
+      - name: Stop if commit is not from bot
+        if: steps.author.outputs.author != 'github-actions[bot]'
+        run: |
+          echo "Commit not authored by github-actions[bot], skipping release."
+          exit 0
 
       - name: Get latest tag
         id: tag
