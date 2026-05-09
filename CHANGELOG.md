@@ -1,3 +1,10 @@
+## v0.1.7 (2026-05-09)
+
+### Fix
+
+- **.github.workflows.github-actions-ci-cd**: Update "actions/create-release" (v1 to v1.1.4).
+- **.github.workflows.github-actions-ci-cd**: Use repo name instead of whole repo (user/name) in "release".
+
 ## v0.1.6 (2026-05-09)
 
 ### Fix
