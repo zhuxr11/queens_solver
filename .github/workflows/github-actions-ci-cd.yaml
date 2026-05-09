@@ -90,24 +90,30 @@ jobs:
           exit 0
 
       - name: Setup uv
+        if: steps.author.outputs.author != 'github-actions[bot]'
         uses: astral-sh/setup-uv@v8.1.0
 
       - name: Setup Python
+        if: steps.author.outputs.author != 'github-actions[bot]'
         run: uv python install
 
       - name: Sync dependencies
+        if: steps.author.outputs.author != 'github-actions[bot]'
         run: uv sync
 
       - name: Configure Git
+        if: steps.author.outputs.author != 'github-actions[bot]'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
       - name: Bump version and changelog
+        if: steps.author.outputs.author != 'github-actions[bot]'
         run: |
           uv run cz bump --yes --changelog
 
       - name: Get latest version tag
+        if: steps.author.outputs.author != 'github-actions[bot]'
         id: version
         run: |
           VERSION_TAG=$(git describe --tags --abbrev=0)
@@ -115,16 +121,19 @@ jobs:
           echo "version_tag=$VERSION_TAG" >> $GITHUB_OUTPUT
 
       - name: Commit bumped version
+        if: steps.author.outputs.author != 'github-actions[bot]'
         run: |
           git add .
           git commit -m "bump version to ${VERSION_TAG}" || echo "No changes to commit"
 
       - name: Push commits and tags
+        if: steps.author.outputs.author != 'github-actions[bot]'
         run: |
           git push https://x-access-token:${{ secrets.PAT_TOKEN }}@github.com/${{ github.repository }} HEAD:master
           git push --tags https://x-access-token:${{ secrets.PAT_TOKEN }}@github.com/${{ github.repository }}
 
       - name: Check if dev branch exists
+        if: steps.author.outputs.author != 'github-actions[bot]'
         id: check_dev
         run: |
           if git ls-remote --exit-code --heads origin dev; then
@@ -134,7 +143,9 @@ jobs:
           fi
 
       - name: Rebase dev onto master
-        if: steps.check_dev.outputs.exists == 'true'
+        if: |
+          steps.check_dev.outputs.exists == 'true' &&
+          steps.author.outputs.author != 'github-actions[bot]'
         run: |
           git fetch origin master
           git fetch origin dev
@@ -170,6 +181,7 @@ jobs:
           exit 0
 
       - name: Get latest tag
+        if: steps.author.outputs.author == 'github-actions[bot]'
         id: tag
         run: |
           git fetch origin master --tags
@@ -179,6 +191,7 @@ jobs:
           echo "tag=$TAG" >> $GITHUB_OUTPUT
 
       - name: Create release
+        if: steps.author.outputs.author == 'github-actions[bot]'
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
