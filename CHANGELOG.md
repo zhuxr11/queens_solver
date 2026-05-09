@@ -1,3 +1,9 @@
+## v0.1.6 (2026-05-09)
+
+### Fix
+
+- **.github.workflows.github-actions-ci-cd**: Check the latest tag is on the latest commit and starts with "v" in "release" step.
+
 ## v0.1.5 (2026-05-09)
 
 ### Fix
