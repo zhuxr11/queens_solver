@@ -27,5 +27,5 @@
 - **.github.workflows.github-actions-ci-cd**: Add logger output to "pytest".
 - **.github.workflows.github-actions-ci-cd**: Update "actions/upload-artifact" (v4to v7) to avoid "Node.js 20 actions" warnings.
 - **.github.workflows.github-actions-ci-cd**: Update "actions/checkout" (v4 to v6) and "astral-sh/setup-uv" (v6 to v8.1.0) to avoid "Node.js 20 actions" warnings.
-- **.github.workflows.github-actions-ci-cd**: Add "pytest-cov" to run converage with "pytest".
+- **.github.workflows.github-actions-ci-cd**: Add "pytest-cov" to run coverage with "pytest".
 - **.github.workflows.github-actions-ci-cd**: Remove use of uv-generated scripts (e.g. install-playwright-browsers), since they result in "command not found" errors in CI/CD.

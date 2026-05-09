@@ -8,7 +8,6 @@ from playwright._impl._playwright import Playwright
 
 def open_queens_game(
     p: Playwright,
-    logger: logging.Logger,
     mode: Literal["linkedin"] = "linkedin",
     **kwargs,
 ) -> tuple[Page, str]:
@@ -22,7 +21,6 @@ def open_queens_game(
     Args:
         p: Active Playwright instance created by
             `sync_playwright()`.
-        logger: Logger used to record runtime information.
         mode: Backend implementation used to open the game.
         **kwargs: Additional keyword arguments passed to the
             backend-specific implementation.
@@ -51,6 +49,11 @@ def open_queens_game(
             )
         ```
     """
+    logging.basicConfig(
+        level=logging.INFO,
+        format="%(asctime)s [%(levelname)s] %(name)s: %(message)s",
+    )
+    logger = logging.getLogger("queens_browser")
     if mode == "linkedin":
         res = open_queens_game_linkedin(p=p, logger=logger, **kwargs)
     return res, mode
