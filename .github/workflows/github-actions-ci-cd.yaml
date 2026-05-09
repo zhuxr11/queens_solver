@@ -159,8 +159,7 @@ jobs:
     needs: tests
 
     if: |
-      github.event_name == 'workflow_dispatch' &&
-      startsWith(github.ref, 'refs/tags/v')
+      github.event_name == 'workflow_dispatch'
 
     steps:
       - name: Checkout
@@ -180,18 +179,30 @@ jobs:
           echo "Commit not authored by github-actions[bot], skipping release."
           exit 0
 
-      - name: Get latest tag
-        if: steps.author.outputs.author == 'github-actions[bot]'
+      - name: Get latest tag on current HEAD
         id: tag
+        if: steps.author.outputs.author == 'github-actions[bot]'
         run: |
-          git fetch origin master --tags
-          git checkout master
-          git pull origin master
-          TAG=$(git describe --tags --abbrev=0)
+          # Fetch tags
+          git fetch origin --tags
+          # Get the latest tag that starts with 'v'
+          TAG=$(git tag --sort=-creatordate | grep '^v' | head -n1)
+          # Get commit hash for this tag
+          TAG_COMMIT=$(git rev-list -n 1 $TAG)
+          # Get current HEAD commit hash
+          HEAD_COMMIT=$(git rev-parse HEAD)
+          echo "Latest tag: $TAG (commit $TAG_COMMIT)"
+          echo "Current HEAD: $HEAD_COMMIT"
+          if [ "$TAG_COMMIT" != "$HEAD_COMMIT" ]; then
+            echo "Tag $TAG does not point to current HEAD, skipping release."
+            exit 0
+          fi
           echo "tag=$TAG" >> $GITHUB_OUTPUT
 
       - name: Create release
-        if: steps.author.outputs.author == 'github-actions[bot]'
+        if: |
+          steps.tag.outputs.tag != '' &&
+          steps.author.outputs.author == 'github-actions[bot]'
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
