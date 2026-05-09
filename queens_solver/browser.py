@@ -8,21 +8,58 @@ from playwright._impl._playwright import Playwright
 
 def open_queens_game(
     p: Playwright,
-    url: str = "https://www.linkedin.com/games/view/queens/desktop",
-    logger: logging.Logger | None = None,
+    logger: logging.Logger,
     mode: Literal["linkedin"] = "linkedin",
+    **kwargs,
 ) -> tuple[Page, str]:
-    if logger is None:
-        logger = logging.Logger("queens_solver")
+    """Open a Queens game page using the specified backend.
+
+    This function dispatches to a backend-specific implementation
+    that launches and initializes a Queens game page in a browser.
+
+    Currently, only the LinkedIn Queens backend is supported.
+
+    Args:
+        p: Active Playwright instance created by
+            `sync_playwright()`.
+        logger: Logger used to record runtime information.
+        mode: Backend implementation used to open the game.
+        **kwargs: Additional keyword arguments passed to the
+            backend-specific implementation.
+
+            Common arguments include:
+                url: URL of the Queens game page for the backend.
+
+    Returns:
+        A tuple containing:
+
+            - Playwright page object for the opened game page.
+            - Backend mode used to open the game.
+
+    Raises:
+        RuntimeError: If the game page cannot be opened or
+            initialized successfully.
+        ValueError: If an unsupported backend mode is specified.
+
+    Example:
+        ```python
+        with sync_playwright() as p:
+            page, mode = open_queens_game(
+                p=p,
+                logger=logger,
+                url="https://www.linkedin.com/games/view/queens/desktop",
+            )
+        ```
+    """
     if mode == "linkedin":
-        res = open_queens_game_linkedin(p=p, url=url, logger=logger)
+        res = open_queens_game_linkedin(p=p, logger=logger, **kwargs)
     return res, mode
 
 
 def open_queens_game_linkedin(
     p: Playwright,
-    url: str,
     logger: logging.Logger,
+    url: str = "https://linkedin.com/games/view/queens/desktop",
 ) -> Page:
     """Open the LinkedIn Queens game page and start a game session.
 
@@ -37,9 +74,9 @@ def open_queens_game_linkedin(
 
     Args:
         p: Active Playwright synchronous API instance.
-        url: URL of the LinkedIn Queens game page.
         logger: Logger instance used for progress and debug
             messages.
+        url: URL of the LinkedIn Queens game page.
 
     Returns:
         A Playwright ``Page`` object representing the active

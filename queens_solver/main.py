@@ -4,7 +4,7 @@ from scipy.sparse import csr_matrix
 
 from queens_solver.parser import parse_queens_game
 from queens_solver.solver import solve_queens_game
-from queens_solver.utils import open_queens_game
+from queens_solver.browser import open_queens_game
 from queens_solver.validator import validate_queens_game
 
 
