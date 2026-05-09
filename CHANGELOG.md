@@ -1,3 +1,9 @@
+## v0.1.5 (2026-05-09)
+
+### Fix
+
+- **.github.workflows.github-actions-ci-cd**: Add proceed criteria to all following steps in "publish" and "release".
+
 ## v0.1.4 (2026-05-09)
 
 ### Fix
