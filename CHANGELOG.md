@@ -1,3 +1,9 @@
+## v0.1.8 (2026-05-09)
+
+### Fix
+
+- **.github.workflows.github-actions-ci-cd**: Use "github.event.repository.name" instead of "github.repository.name".
+
 ## v0.1.7 (2026-05-09)
 
 ### Fix
