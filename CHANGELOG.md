@@ -1,3 +1,15 @@
+## v0.1.3 (2026-05-09)
+
+### Fix
+
+- **.github.workflows.github-actions-ci-cd**: Put "release" after "tests" instead of "publish".
+- **queens_solver.browser**: Remove `logger` from `open_queens_game()`.
+- **.github.workflows.github-actions-ci-cd**: Trigger "publish" only on master and commits not authored by action bot; trigger "release" only on manual runs and a tag starting with "v" by action bot.
+
+### Refactor
+
+- **queens_solver.browser**: Remove `url` from `open_queens_game()` arguments and update its docstring accordingly.
+
 ## v0.1.2 (2026-05-08)
 
 ### Fix
