@@ -1,3 +1,9 @@
+## v0.1.4 (2026-05-09)
+
+### Fix
+
+- **.github.workflows.github-actions-ci-cd**: Change "github.actor" (action triggerer) to commit author as criteria to trigger "publish" (authored not by bot) and "release" (authored by bot).
+
 ## v0.1.3 (2026-05-09)
 
 ### Fix
