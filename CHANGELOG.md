@@ -1,3 +1,13 @@
+## v0.1.12 (2026-05-11)
+
+### Fix
+
+- **.github.workflows.github-actions-ci-cd**: Add "outputs" sections to "check_author" and "check_tag".
+
+### Refactor
+
+- **.github.workflows.github-actions-ci-cd**: Revise labels for "check_author" and "check_tag".
+
 ## v0.1.11 (2026-05-11)
 
 ### Fix
