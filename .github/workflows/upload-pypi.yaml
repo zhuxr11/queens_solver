@@ -1,0 +1,37 @@
+name: Upload Python Package to PyPI from the latest commit
+
+on:
+  workflow_dispatch: {}
+
+jobs:
+  pypi-publish:
+    name: Publish release to PyPI
+    runs-on: ubuntu-latest
+
+    environment:
+      name: pypi
+      url: https://pypi.org/p/queens-slvr
+
+    permissions:
+      id-token: write
+
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Setup uv
+        uses: astral-sh/setup-uv@v8.1.0
+
+      - name: Setup Python
+        run: uv python install
+
+      - name: Sync dependencies
+        run: uv sync
+
+      - name: Install Playwright browsers
+        run: uv run install-playwright-browsers
+
+      - name: Build package
+        run: uv build
+
+      - name: Publish package distributions to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1.14
