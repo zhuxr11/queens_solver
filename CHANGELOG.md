@@ -1,3 +1,9 @@
+## v0.1.10 (2026-05-11)
+
+### Fix
+
+- **.github.workflows.github-actions-ci-cd**: Add print of detected author and tag.
+
 ## v0.1.9 (2026-05-11)
 
 ### Fix
