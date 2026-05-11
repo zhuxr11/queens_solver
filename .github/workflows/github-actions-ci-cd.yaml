@@ -70,6 +70,9 @@ jobs:
     runs-on: ubuntu-latest
     needs: tests
 
+    outputs:
+      author: ${{ steps.author.outputs.author }}
+
     steps:
       - name: Checkout
         uses: actions/checkout@v6
@@ -81,13 +84,15 @@ jobs:
         id: author
         run: |
           AUTHOR=$(git log -1 --pretty=format:'%an')
-          echo "author=$AUTHOR"
           echo "author=$AUTHOR" >> $GITHUB_OUTPUT
 
   check_tag:
     name: Check tag (v*) of the latest commit
     runs-on: ubuntu-latest
     needs: tests
+
+    outputs:
+      tag: ${{ steps.tag.outputs.tag }}
 
     steps:
       - name: Checkout
@@ -102,7 +107,6 @@ jobs:
           git fetch origin --tags
           # Get the latest tag that starts with 'v'
           TAG=$(git tag --sort=-creatordate | grep '^v' | head -n1)
-          echo "tag=$TAG"
           # Get commit hash for this tag
           TAG_COMMIT=$(git rev-list -n 1 $TAG)
           # Get current HEAD commit hash
