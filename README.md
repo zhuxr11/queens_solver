@@ -4,14 +4,14 @@ Queens Solver solves "Queens" game hosted on [linkedin](https://linkedin.com/gam
 
 ## Installation
 
-To install `queens_solver`, first run one of the following:
+To install Queens solver, first run one of the following:
 
 ``` {bash}
 # Using pip
-pip install queens_solver
+pip install queens-slvr
 
 # Using uv
-uv pip install queens_solver
+uv pip install queens-slvr
 ```
 
 Then, run this to install browsers for playwright:
@@ -22,7 +22,7 @@ install-playwright-browsers
 
 ## Usage
 
-`queens_solver` automatically loads the "Queens" game hosted daily. To call the solver, run:
+The Queens solver automatically loads the "Queens" game hosted daily. To call the solver, run:
 
 ``` {bash}
 queens-solver

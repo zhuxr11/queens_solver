@@ -1,5 +1,5 @@
 [project]
-name = "queens-solver"
+name = "queens-slvr"
 version = "0.1.8"
 authors = [
   { name="Xiurui Zhu", email="zxr6@163.com" },
