@@ -1,3 +1,16 @@
+## v0.1.9 (2026-05-11)
+
+### Fix
+
+- **pyproject**: Add package name to "tool.hatch.build.targets.wheel", since the project name (queens-slvr) differs from the package name (queens_solver).
+- **.github.workflows.github-actions-ci-cd**: Fix missing arguments and typos in CI/CD workflow file.
+- **.github.workflows.github-actions-ci-cd**: Add "build package" to "build" step.
+- **pyproject**: Change package name (queens-slvr, as published on PyPI), and update "README.md" accordingly.
+
+### Refactor
+
+- **.github.workflows.github-actions-ci-cd**: Extrack check of commit author and tag, and use them to determine whether to skip "publish" or "release".
+
 ## v0.1.8 (2026-05-09)
 
 ### Fix

@@ -740,8 +740,8 @@ wheels = [
 ]
 
 [[package]]
-name = "queens-solver"
-version = "0.1.7"
+name = "queens-slvr"
+version = "0.1.8"
 source = { editable = "." }
 dependencies = [
     { name = "beautifulsoup4" },
