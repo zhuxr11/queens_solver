@@ -34,6 +34,18 @@ jobs:
       - name: Build package
         run: uv build
 
+      - name: Upload sdist artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: sdist
+          path: dist/queens_slvr-*.tar.gz
+
+      - name: Upload wheel artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: wheel
+          path: dist/queens_slvr-*.whl
+
   tests:
     name: Tests
     runs-on: ubuntu-latest
