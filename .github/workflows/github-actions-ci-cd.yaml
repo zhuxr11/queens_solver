@@ -97,19 +97,22 @@ jobs:
 
       - name: Get latest tag on current HEAD
         id: tag
-        if: steps.author.outputs.author == 'github-actions[bot]'
         run: |
           # Fetch tags
           git fetch origin --tags
           # Get the latest tag that starts with 'v'
           TAG=$(git tag --sort=-creatordate | grep '^v' | head -n1)
+          echo "tag=$TAG"
           # Get commit hash for this tag
           TAG_COMMIT=$(git rev-list -n 1 $TAG)
           # Get current HEAD commit hash
           HEAD_COMMIT=$(git rev-parse HEAD)
           echo "Latest tag: $TAG (commit $TAG_COMMIT)"
           echo "Current HEAD: $HEAD_COMMIT"
-          echo "tag=$TAG"
+          if [ "$TAG_COMMIT" != "$HEAD_COMMIT" ]; then
+            echo "Tag $TAG does not point to current HEAD."
+            exit 0
+          fi
           echo "tag=$TAG" >> $GITHUB_OUTPUT
 
   publish:
