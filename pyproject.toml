@@ -35,15 +35,18 @@ install-playwright-browsers = "queens_solver.setup:install_playwright_browsers"
 Homepage = "https://github.com/zhuxr11/queens_solver"
 Issues = "https://github.com/zhuxr11/queens_solver/issues"
 
+[tool.commitizen]
+name = "cz_conventional_commits"
+version_provider = "pep621"
+tag_format = "v$version"
+update_changelog_on_bump = true
+
+[tool.hatch.build.targets.wheel]
+packages = ["queens_solver"]
+
 [tool.ruff.lint]
 select = ["I", "E", "F", "B", "U"]
 fixable = ["ALL"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
-
-[tool.commitizen]
-name = "cz_conventional_commits"
-version_provider = "pep621"
-tag_format = "v$version"
-update_changelog_on_bump = true
