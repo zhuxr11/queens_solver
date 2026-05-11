@@ -66,7 +66,7 @@ jobs:
           path: coverage.xml
 
   check_author:
-    name: Check author of the latest commit
+    name: Get author name
     runs-on: ubuntu-latest
     needs: tests
 
@@ -87,7 +87,7 @@ jobs:
           echo "author=$AUTHOR" >> $GITHUB_OUTPUT
 
   check_tag:
-    name: Check tag (v*) of the latest commit
+    name: Get tag (v*) name
     runs-on: ubuntu-latest
     needs: tests
 
