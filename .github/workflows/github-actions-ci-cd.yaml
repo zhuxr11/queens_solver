@@ -81,6 +81,7 @@ jobs:
         id: author
         run: |
           AUTHOR=$(git log -1 --pretty=format:'%an')
+          echo "author=$AUTHOR"
           echo "author=$AUTHOR" >> $GITHUB_OUTPUT
 
   check_tag:
@@ -108,10 +109,7 @@ jobs:
           HEAD_COMMIT=$(git rev-parse HEAD)
           echo "Latest tag: $TAG (commit $TAG_COMMIT)"
           echo "Current HEAD: $HEAD_COMMIT"
-          if [ "$TAG_COMMIT" != "$HEAD_COMMIT" ]; then
-            echo "Tag $TAG does not point to current HEAD, skipping release."
-            exit 0
-          fi
+          echo "tag=$TAG"
           echo "tag=$TAG" >> $GITHUB_OUTPUT
 
   publish:
