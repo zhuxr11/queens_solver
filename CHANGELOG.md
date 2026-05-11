@@ -1,3 +1,9 @@
+## v0.1.11 (2026-05-11)
+
+### Fix
+
+- **.github.workflows.github-actions-ci-cd**: Remove criteria on "check_tag".
+
 ## v0.1.10 (2026-05-11)
 
 ### Fix
