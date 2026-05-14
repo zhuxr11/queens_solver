@@ -36,8 +36,8 @@ extensions = [
 autotype_api = "python"
 autoapi_dirs = ["../queens_solver"]
 autodoc_typehints = "description"  # show type hints in doc body
-napoleon_google_docstring = False  # disable Google-style
-napoleon_numpy_docstring = True  # parse NumPy style docstrings
+napoleon_google_docstring = True  # parse Google-style docstrings
+napoleon_numpy_docstring = False  # disable NumPy style docstrings
 
 # Handle warnings and skips
 suppress_warnings = ["ref.python"]
