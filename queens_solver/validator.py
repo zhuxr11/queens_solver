@@ -12,35 +12,22 @@ def validate_queens_game(
 ) -> bool:
     """Validate a Queens puzzle solution using the specified backend.
 
-    This function initializes logging and dispatches solution
-    validation to a backend-specific validator implementation.
-
-    Currently, only the LinkedIn Queens backend is supported.
+    Initializes logging and dispatches to a backend-specific validator.
+    Currently supports the LinkedIn Queens backend only.
 
     Args:
-        solution: Binary solution matrix indicating queen placements.
-            Nonzero entries are interpreted as queen positions.
+        solution: Binary solution matrix. Nonzero entries indicate queen
+            positions.
         page: Page instance of the Queens game page to validate against.
-        mode: Validation backend to use.
+        mode: Validation backend. Defaults to ``"linkedin"``.
 
     Returns:
         ``True`` if the solution is accepted by the game backend,
-        otherwise ``False``.
+        ``False`` otherwise.
 
     Raises:
-        RuntimeError: If the validation backend fails during
-            browser interaction or page automation.
-        ValueError: If an unsupported validation mode is provided.
-
-    Example:
-        ```python
-        success = validate_queens_game(
-            solution=solution,
-            url="https://www.linkedin.com/games/view/queens/desktop",
-        )
-
-        print(success)
-        ```
+        RuntimeError: If validation fails during browser interaction.
+        ValueError: If an unsupported ``mode`` is provided.
     """
     logging.basicConfig(
         level=logging.INFO,
@@ -63,43 +50,24 @@ def validate_queens_game_linkedin(
 ) -> bool:
     """Validate a Queens puzzle solution on LinkedIn.
 
-    This function launches a Chromium browser using Playwright,
-    opens the LinkedIn Queens game page, and applies the provided
-    solution by placing queens onto the corresponding board cells.
-
-    Queens are placed using double-click actions on enabled tiles.
-    After all moves are applied, the function checks whether the
-    success/confetti screen appears, indicating that the puzzle
-    has been solved correctly.
+    Applies the solution by double-clicking enabled board cells to
+    place queens, then checks for the success/confetti screen.
 
     Args:
-        solution: Binary solution matrix indicating queen
-            placements. Nonzero entries are interpreted as
+        solution: Binary solution matrix. Nonzero entries indicate
             queen positions.
         page: Page instance of the LinkedIn Queens game page.
-        logger: Logger instance used for progress and debug
-            messages.
+        logger: Logger for progress and debug messages.
 
     Returns:
-        ``True`` if the LinkedIn game accepts the solution and
-        displays the success/confetti animation, otherwise
-        ``False``.
+        ``True`` if the game accepts the solution and displays the
+        confetti animation, ``False`` otherwise.
 
     Raises:
-        playwright.sync_api.TimeoutError: If required page
-            elements fail to appear within the timeout period.
+        playwright.sync_api.TimeoutError: If page elements fail to
+            appear within the timeout period.
         playwright.sync_api.Error: If browser interaction fails
             during automated gameplay.
-
-    Example:
-        ```python
-        success = validate_queens_game_linkedin(
-            solution=solution,
-            url="https://www.linkedin.com/games/view/queens/desktop",
-        )
-
-        print(success)
-        ```
     """
     # Put queens on solved tiles by double clicks
     for cell_idx in range(solution.size):

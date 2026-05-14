@@ -13,41 +13,22 @@ def open_queens_game(
 ) -> tuple[Page, str]:
     """Open a Queens game page using the specified backend.
 
-    This function dispatches to a backend-specific implementation
-    that launches and initializes a Queens game page in a browser.
-
-    Currently, only the LinkedIn Queens backend is supported.
+    Dispatches to a backend-specific implementation that launches and
+    initializes a Queens game page. Currently supports LinkedIn only.
 
     Args:
-        p: Active Playwright instance created by
-            `sync_playwright()`.
-        mode: Backend implementation used to open the game.
-        **kwargs: Additional keyword arguments passed to the
-            backend-specific implementation.
-
-            Common arguments include:
-                url: URL of the Queens game page for the backend.
+        p: Active Playwright instance from ``sync_playwright()``.
+        mode: Backend to use. Defaults to ``"linkedin"``.
+        **kwargs: Additional keyword arguments forwarded to the
+            backend-specific implementation (e.g. ``url``).
 
     Returns:
-        A tuple containing:
-
-            - Playwright page object for the opened game page.
-            - Backend mode used to open the game.
+        Tuple of ``(page, mode)`` where ``page`` is the Playwright
+        page object for the opened game.
 
     Raises:
-        RuntimeError: If the game page cannot be opened or
-            initialized successfully.
-        ValueError: If an unsupported backend mode is specified.
-
-    Example:
-        ```python
-        with sync_playwright() as p:
-            page, mode = open_queens_game(
-                p=p,
-                logger=logger,
-                url="https://www.linkedin.com/games/view/queens/desktop",
-            )
-        ```
+        RuntimeError: If the game page cannot be opened successfully.
+        ValueError: If an unsupported ``mode`` is specified.
     """
     logging.basicConfig(
         level=logging.INFO,
@@ -66,42 +47,25 @@ def open_queens_game_linkedin(
 ) -> Page:
     """Open the LinkedIn Queens game page and start a game session.
 
-    This function launches a Chromium browser using Playwright,
-    opens the LinkedIn Queens game page, waits for the
-    "Play game" button to appear, and clicks it to enter
-    the playable game board.
-
-    After launching the game, the function sends an Escape
-    key press to dismiss a possible tutorial modal dialog
-    that may otherwise block interactions with the board.
+    Launches a Chromium browser, navigates to the Queens game page,
+    clicks the "Play game" button, and dismisses any tutorial modal
+    with an Escape key press.
 
     Args:
         p: Active Playwright synchronous API instance.
-        logger: Logger instance used for progress and debug
-            messages.
-        url: URL of the LinkedIn Queens game page.
+        logger: Logger for progress and debug messages.
+        url: URL of the LinkedIn Queens game page. Defaults to
+            ``"https://linkedin.com/games/view/queens/desktop"``.
 
     Returns:
-        A Playwright ``Page`` object representing the active
-        Queens game page after the game has been started.
+        Playwright ``Page`` object for the active game page after
+        the game has been started.
 
     Raises:
-        playwright.sync_api.TimeoutError: If required page
-            elements fail to appear within the default timeout.
-        playwright.sync_api.Error: If browser interaction
-            fails during page initialization.
-
-    Example:
-        ```python
-        with sync_playwright() as p:
-            page = open_queens_game_linkedin(
-                p=p,
-                url="https://www.linkedin.com/games/view/queens/desktop",
-                logger=logger,
-            )
-
-            html = page.content()
-        ```
+        playwright.sync_api.TimeoutError: If required page elements
+            fail to appear within the default timeout.
+        playwright.sync_api.Error: If browser interaction fails
+            during page initialization.
     """
     browser: Browser = p.chromium.launch()
     page: Page = browser.new_page()

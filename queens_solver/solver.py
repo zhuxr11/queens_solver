@@ -9,50 +9,21 @@ from scipy.sparse import coo_matrix, csr_array, vstack
 def solve_queens_game(mat: csr_array) -> np.ndarray:
     """Solve a LinkedIn Queens puzzle using integer linear programming.
 
-    This function formulates the Queens puzzle as a binary integer linear
-    programming problem and solves it with ``scipy.optimize.linprog``.
-
-    The following constraints are enforced:
-
-    - Exactly one queen per row.
-    - Exactly one queen per column.
-    - Exactly one queen per color region.
-    - No two queens may touch diagonally.
-
-    The objective function maximizes the number of placed queens while
-    satisfying all constraints.
+    Formulates the Queens puzzle as a binary integer linear programming
+    problem and solves it with ``scipy.optimize.linprog``. Enforces one
+    queen per row, column, and color region, with no diagonal adjacency.
 
     Args:
-        mat:
-            Sparse matrix representation of the puzzle board. Each entry
-            contains the integer color ID of a cell. The matrix shape
-            corresponds to the puzzle dimensions.
+        mat: Sparse matrix of the puzzle board. Each entry holds the
+            integer color ID of a cell; shape matches the puzzle dimensions.
 
     Returns:
-        A dense binary NumPy array of shape ``(n_row, n_col)`` where:
-
-        - ``1`` indicates a queen is placed in the cell.
-        - ``0`` indicates the cell is empty.
+        Dense binary array of shape ``(n_row, n_col)`` where ``1`` marks a
+        queen and ``0`` marks an empty cell.
 
     Raises:
-        RuntimeError:
-            If the linear programming solver fails to find a valid solution.
-
-    Notes:
-        The optimization problem is solved as a binary integer linear
-        program with:
-
-        - Equality constraints for rows, columns, and color regions.
-        - Upper-bound constraints for diagonal adjacency.
-        - Binary decision variables representing queen placement.
-
-    Example:
-        ```python
-        board = parse_queens_game()
-        solution = solve_queens_game(board)
-
-        print(solution)
-        ```
+        RuntimeError: If the linear programming solver fails to find a
+            valid solution.
     """
     logging.basicConfig(
         level=logging.INFO,
@@ -118,69 +89,21 @@ def gen_constraint_mat(
 ) -> csr_array:
     """Generate a sparse constraint coefficient matrix for the Queens puzzle.
 
-    This function constructs sparse matrices used in the integer linear
-    programming formulation of the Queens puzzle. Different constraint
-    types can be generated depending on the specified ``mode``.
-
-    Supported constraint modes include:
-
-    - ``"row"``:
-      Generates constraints enforcing one queen per row.
-
-    - ``"column"``:
-      Generates constraints enforcing one queen per column.
-
-    - ``"color"``:
-      Generates constraints enforcing one queen per color region.
-
-    - ``"\\"``:
-      Generates constraints preventing queens from touching along
-      descending diagonals.
-
-    - ``"/"``:
-      Generates constraints preventing queens from touching along
-      ascending diagonals.
+    Constructs sparse matrices for the integer linear programming
+    formulation. The ``mode`` parameter selects the constraint type:
+    ``"row"``, ``"column"``, or ``"color"`` for equality constraints;
+    ``"\\"`` or ``"/"`` for diagonal-adjacency upper-bound constraints.
 
     Args:
-        mat:
-            Sparse matrix representation of the puzzle board. Each entry
-            contains the integer color ID of a cell.
-
-        mode:
-            Constraint type to generate. Must be one of:
-
-            - ``"row"``
-            - ``"column"``
-            - ``"color"``
-            - ``"\\"``
-            - ``"/"``
+        mat: Sparse matrix of the puzzle board. Each entry holds the
+            integer color ID of a cell.
+        mode: Constraint type. One of ``"row"``, ``"column"``, ``"color"``,
+            ``"\\"``, or ``"/"``.
 
     Returns:
-        A CSR sparse matrix representing the linear constraint coefficients
-        for the specified constraint type.
-
-        - For ``"row"``, ``"column"``, and ``"color"``, rows correspond
-          to equality constraints.
-        - For ``"\\"`` and ``"/"``, rows correspond to upper-bound
-          constraints for diagonally adjacent cells.
-
-    Notes:
-        Each column in the returned matrix corresponds to a flattened board
-        cell in row-major order:
-
-        ```python
-        linear_idx = row * n_col + col
-        ```
-
-        The generated matrices are intended for use with
-        ``scipy.optimize.linprog``.
-
-    Example:
-        ```python
-        row_constraints = gen_constraint_mat(board, "row")
-        color_constraints = gen_constraint_mat(board, "color")
-        diag_constraints = gen_constraint_mat(board, "\\")
-        ```
+        CSR sparse matrix of linear constraint coefficients. Each column
+        corresponds to a flattened board cell in row-major order
+        (``row * n_col + col``).
     """
     _, n_col = mat.shape
     mat_indices = ([], [])

@@ -13,33 +13,20 @@ def parse_queens_game(
 ) -> csr_array:
     """Parse a Queens game board using the specified backend.
 
-    This function initializes logging and dispatches board parsing
-    to a backend-specific parser implementation.
-
-    Currently, only the LinkedIn Queens backend is supported.
+    Initializes logging and dispatches to a backend-specific parser.
+    Currently supports the LinkedIn Queens backend only.
 
     Args:
         page: Page instance of the Queens game page to parse.
-        mode: Parsing backend to use.
+        mode: Parsing backend. Defaults to ``"linkedin"``.
 
     Returns:
-        A CSR sparse matrix representing the parsed Queens board layout.
-
-        Each matrix entry contains the integer region/color ID
-        associated with the corresponding board cell.
+        CSR sparse matrix of the parsed board layout. Each entry holds
+        the integer region/color ID for the corresponding board cell.
 
     Raises:
-        RuntimeError: If the selected parser fails to locate
-            or extract the Queens board.
-        ValueError: If an unsupported parsing mode is provided.
-
-    Example:
-        ```python
-        mat = parse_queens_game()
-
-        print(mat.shape)
-        print(mat.toarray())
-        ```
+        RuntimeError: If the parser fails to locate or extract the board.
+        ValueError: If an unsupported ``mode`` is provided.
     """
     logging.basicConfig(
         level=logging.INFO,
@@ -57,46 +44,22 @@ def parse_queens_game_linkedin(
 ) -> csr_array:
     """Parse a LinkedIn Queens game board into a sparse matrix.
 
-    This function launches a Chromium browser using Playwright,
-    opens the LinkedIn Queens game page, clicks the
-    "Play game" button, and extracts the rendered game board
-    layout from the HTML.
-
-    Each board cell is parsed into:
-        - row index
-        - column index
-        - region/color index
-
-    The resulting board is returned as a SciPy CSR sparse matrix,
-    where each matrix entry contains the integer region/color ID
-    for the corresponding board cell.
+    Extracts the rendered game board layout from the page HTML by
+    locating the ``queens-board`` section and parsing each cell's
+    row, column, and color class (``cell-color-X``).
 
     Args:
         page: Page instance of the LinkedIn Queens game page.
-        logger: Logger instance used for progress and debug messages.
+        logger: Logger for progress and debug messages.
 
     Returns:
-        A CSR sparse matrix representing the Queens board layout.
-
-        The matrix shape is inferred from the parsed row and column
-        indices. Each nonzero entry contains the parsed
-        ``cell-color-X`` integer value corresponding to a board
-        region/color identifier.
+        CSR sparse matrix of the board layout. Shape is inferred from
+        parsed row/column indices; each entry holds the integer
+        region/color ID from ``cell-color-X``.
 
     Raises:
-        RuntimeError: If the Queens board section cannot be found
-            in the rendered HTML. This may occur if:
-                - the user is not logged into LinkedIn,
-                - the page structure has changed,
-                - the game failed to load correctly.
-
-    Example:
-        ```python
-        mat = parse_queens_game_linkedin()
-
-        print(mat.shape)
-        print(mat.toarray())
-        ```
+        RuntimeError: If the ``queens-board`` section is not found in
+            the HTML (e.g. user not logged in or page structure changed).
     """
     if logger is None:
         logger = logging.getLogger("queens_parser")
