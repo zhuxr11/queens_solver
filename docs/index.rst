@@ -6,11 +6,10 @@
 queens_solver documentation
 ===========================
 
-Queens Solver solves "Queens" game hosted on `linkedin <https://linkedin.com/games/queens>`
-with linear programming.
+Queens Solver solves "Queens" game hosted on
+`linkedin <https://linkedin.com/games/queens>`_ with linear programming.
 
 
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
-
