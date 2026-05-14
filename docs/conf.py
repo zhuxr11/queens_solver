@@ -82,4 +82,4 @@ html_sidebars = {
 smv_tag_whitelist = r"^v\d+\.\d+\.\d+$"
 smv_branch_whitelist = r"(master|dev)"
 smv_outputdir_format = "{ref.name}"
-smv_prefer_remote_refs = False
+smv_prefer_remote_refs = True

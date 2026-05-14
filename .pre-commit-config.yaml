@@ -11,6 +11,7 @@ repos:
     rev: v2.4.1
     hooks:
       - id: codespell
+        exclude: ^uv\.lock$
 
   # General sanity checks
   - repo: https://github.com/pre-commit/pre-commit-hooks
