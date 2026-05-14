@@ -64,9 +64,9 @@ def mark_ndarray(x: int, marker: str = "*", offset: int = 0) -> str:
     Args:
         x: Integer value to format.
         marker: Character used to mark queen positions. Defaults
-                to ``"*"``.
+            to ``"*"``.
         offset: Value added to the displayed absolute value. Defaults
-                to ``0``.
+            to ``0``.
 
     Returns:
         Formatted string with ANSI color escape sequences.
