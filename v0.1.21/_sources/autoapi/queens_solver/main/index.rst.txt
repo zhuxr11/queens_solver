@@ -1,0 +1,63 @@
+queens_solver.main
+==================
+
+.. py:module:: queens_solver.main
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   queens_solver.main.run
+   queens_solver.main.print_queens_solution
+   queens_solver.main.mark_ndarray
+
+
+Module Contents
+---------------
+
+.. py:function:: run(*args, **kwargs)
+
+   Run the complete Queens puzzle solving pipeline.
+
+   Parses the board, solves it with integer linear programming,
+   validates the solution in-browser, then prints the result.
+
+   :param \*args: Positional arguments forwarded to
+                  ``parse_queens_game``.
+   :param \*\*kwargs: Keyword arguments forwarded to
+                      ``parse_queens_game``.
+
+
+.. py:function:: print_queens_solution(layout, solution)
+
+   Print a formatted Queens puzzle solution to the terminal.
+
+   Queen cells are represented as negative values for conditional
+   color formatting via ``numpy.printoptions`` with a custom
+   integer formatter.
+
+   :param layout: Sparse matrix of the puzzle layout. Each entry holds
+                  the integer color ID of a cell.
+   :param solution: Dense binary array. ``1`` indicates a queen, ``0``
+                    an empty cell.
+
+
+.. py:function:: mark_ndarray(x, marker = '*', offset = 0)
+
+   Format an integer value with optional terminal coloring.
+
+   Negative values are highlighted with ``marker``; positive values
+   are printed normally. The displayed value is shown as its absolute
+   value plus ``offset``.
+
+   :param x: Integer value to format.
+   :param marker: Character used to mark queen positions. Defaults
+                  to ``"*"``.
+   :param offset: Value added to the displayed absolute value. Defaults
+                  to ``0``.
+
+   :returns: Formatted string with ANSI color escape sequences.
+
+

@@ -1,0 +1,54 @@
+queens_solver.parser
+====================
+
+.. py:module:: queens_solver.parser
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   queens_solver.parser.parse_queens_game
+   queens_solver.parser.parse_queens_game_linkedin
+
+
+Module Contents
+---------------
+
+.. py:function:: parse_queens_game(page, mode = 'linkedin')
+
+   Parse a Queens game board using the specified backend.
+
+   Initializes logging and dispatches to a backend-specific parser.
+   Currently supports the LinkedIn Queens backend only.
+
+   :param page: Page instance of the Queens game page to parse.
+   :param mode: Parsing backend. Defaults to ``"linkedin"``.
+
+   :returns: CSR sparse matrix of the parsed board layout. Each entry holds
+             the integer region/color ID for the corresponding board cell.
+
+   :raises RuntimeError: If the parser fails to locate or extract the board.
+   :raises ValueError: If an unsupported ``mode`` is provided.
+
+
+.. py:function:: parse_queens_game_linkedin(page, logger = None)
+
+   Parse a LinkedIn Queens game board into a sparse matrix.
+
+   Extracts the rendered game board layout from the page HTML by
+   locating the ``queens-board`` section and parsing each cell's
+   row, column, and color class (``cell-color-X``).
+
+   :param page: Page instance of the LinkedIn Queens game page.
+   :param logger: Logger for progress and debug messages.
+
+   :returns: CSR sparse matrix of the board layout. Shape is inferred from
+             parsed row/column indices; each entry holds the integer
+             region/color ID from ``cell-color-X``.
+
+   :raises RuntimeError: If the ``queens-board`` section is not found in
+       the HTML (e.g. user not logged in or page structure changed).
+
+

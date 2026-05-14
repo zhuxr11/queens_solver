@@ -1,0 +1,55 @@
+queens_solver.solver
+====================
+
+.. py:module:: queens_solver.solver
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   queens_solver.solver.solve_queens_game
+   queens_solver.solver.gen_constraint_mat
+
+
+Module Contents
+---------------
+
+.. py:function:: solve_queens_game(mat)
+
+   Solve a LinkedIn Queens puzzle using integer linear programming.
+
+   Formulates the Queens puzzle as a binary integer linear programming
+   problem and solves it with ``scipy.optimize.linprog``. Enforces one
+   queen per row, column, and color region, with no diagonal adjacency.
+
+   :param mat: Sparse matrix of the puzzle board. Each entry holds the
+               integer color ID of a cell; shape matches the puzzle dimensions.
+
+   :returns: Dense binary array of shape ``(n_row, n_col)`` where ``1`` marks a
+             queen and ``0`` marks an empty cell.
+
+   :raises RuntimeError: If the linear programming solver fails to find a
+       valid solution.
+
+
+.. py:function:: gen_constraint_mat(mat, mode)
+
+   Generate a sparse constraint coefficient matrix for the Queens puzzle.
+
+   Constructs sparse matrices for the integer linear programming
+   formulation. The ``mode`` parameter selects the constraint type:
+   ``"row"``, ``"column"``, or ``"color"`` for equality constraints;
+   ``"\"`` or ``"/"`` for diagonal-adjacency upper-bound constraints.
+
+   :param mat: Sparse matrix of the puzzle board. Each entry holds the
+               integer color ID of a cell.
+   :param mode: Constraint type. One of ``"row"``, ``"column"``, ``"color"``,
+                ``"\"``, or ``"/"``.
+
+   :returns: CSR sparse matrix of linear constraint coefficients. Each column
+             corresponds to a flattened board cell in row-major order
+             (``row * n_col + col``).
+
+

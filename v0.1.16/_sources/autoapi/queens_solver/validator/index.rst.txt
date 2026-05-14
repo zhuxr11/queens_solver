@@ -1,0 +1,58 @@
+queens_solver.validator
+=======================
+
+.. py:module:: queens_solver.validator
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   queens_solver.validator.validate_queens_game
+   queens_solver.validator.validate_queens_game_linkedin
+
+
+Module Contents
+---------------
+
+.. py:function:: validate_queens_game(solution, page, mode = 'linkedin')
+
+   Validate a Queens puzzle solution using the specified backend.
+
+   Initializes logging and dispatches to a backend-specific validator.
+   Currently supports the LinkedIn Queens backend only.
+
+   :param solution: Binary solution matrix. Nonzero entries indicate queen
+                    positions.
+   :param page: Page instance of the Queens game page to validate against.
+   :param mode: Validation backend. Defaults to ``"linkedin"``.
+
+   :returns: ``True`` if the solution is accepted by the game backend,
+             ``False`` otherwise.
+
+   :raises RuntimeError: If validation fails during browser interaction.
+   :raises ValueError: If an unsupported ``mode`` is provided.
+
+
+.. py:function:: validate_queens_game_linkedin(solution, page, logger)
+
+   Validate a Queens puzzle solution on LinkedIn.
+
+   Applies the solution by double-clicking enabled board cells to
+   place queens, then checks for the success/confetti screen.
+
+   :param solution: Binary solution matrix. Nonzero entries indicate
+                    queen positions.
+   :param page: Page instance of the LinkedIn Queens game page.
+   :param logger: Logger for progress and debug messages.
+
+   :returns: ``True`` if the game accepts the solution and displays the
+             confetti animation, ``False`` otherwise.
+
+   :raises playwright.sync_api.TimeoutError: If page elements fail to
+       appear within the timeout period.
+   :raises playwright.sync_api.Error: If browser interaction fails
+       during automated gameplay.
+
+

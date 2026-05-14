@@ -1,0 +1,59 @@
+queens_solver.browser
+=====================
+
+.. py:module:: queens_solver.browser
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   queens_solver.browser.open_queens_game
+   queens_solver.browser.open_queens_game_linkedin
+
+
+Module Contents
+---------------
+
+.. py:function:: open_queens_game(p, mode = 'linkedin', **kwargs)
+
+   Open a Queens game page using the specified backend.
+
+   Dispatches to a backend-specific implementation that launches and
+   initializes a Queens game page. Currently supports LinkedIn only.
+
+   :param p: Active Playwright instance from ``sync_playwright()``.
+   :param mode: Backend to use. Defaults to ``"linkedin"``.
+   :param \*\*kwargs: Additional keyword arguments forwarded to the
+                      backend-specific implementation (e.g. ``url``).
+
+   :returns: Tuple of ``(page, mode)`` where ``page`` is the Playwright
+             page object for the opened game.
+
+   :raises RuntimeError: If the game page cannot be opened successfully.
+   :raises ValueError: If an unsupported ``mode`` is specified.
+
+
+.. py:function:: open_queens_game_linkedin(p, logger, url = 'https://linkedin.com/games/view/queens/desktop')
+
+   Open the LinkedIn Queens game page and start a game session.
+
+   Launches a Chromium browser, navigates to the Queens game page,
+   clicks the "Play game" button, and dismisses any tutorial modal
+   with an Escape key press.
+
+   :param p: Active Playwright synchronous API instance.
+   :param logger: Logger for progress and debug messages.
+   :param url: URL of the LinkedIn Queens game page. Defaults to
+               ``"https://linkedin.com/games/view/queens/desktop"``.
+
+   :returns: Playwright ``Page`` object for the active game page after
+             the game has been started.
+
+   :raises playwright.sync_api.TimeoutError: If required page elements
+       fail to appear within the default timeout.
+   :raises playwright.sync_api.Error: If browser interaction fails
+       during page initialization.
+
+

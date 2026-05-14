@@ -1,0 +1,31 @@
+queens_solver.setup
+===================
+
+.. py:module:: queens_solver.setup
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   queens_solver.setup.install_playwright_browsers
+
+
+Module Contents
+---------------
+
+.. py:function:: install_playwright_browsers(browsers = ('chromium', ))
+
+   Install Playwright browser binaries.
+
+   Invokes the Playwright CLI installer via the current Python interpreter.
+
+   :param browsers: Tuple of Playwright browser names to install
+                    (e.g. ``"chromium"``, ``"firefox"``, ``"webkit"``).
+                    Defaults to ``("chromium",)``.
+
+   :raises subprocess.CalledProcessError: If the Playwright install command
+       exits with a nonzero status.
+
+

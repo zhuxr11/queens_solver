@@ -1,0 +1,6 @@
+.logo {
+  width: 33.33%;   /* 1/3 of parent container width */
+  height: auto;    /* scale height proportionally */
+  align-items: center;       /* vertical middle */
+  float: left; /* align items to the left */
+}

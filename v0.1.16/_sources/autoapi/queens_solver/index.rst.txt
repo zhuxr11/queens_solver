@@ -1,0 +1,44 @@
+queens_solver
+=============
+
+.. py:module:: queens_solver
+
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 1
+
+   /autoapi/queens_solver/browser/index
+   /autoapi/queens_solver/main/index
+   /autoapi/queens_solver/parser/index
+   /autoapi/queens_solver/setup/index
+   /autoapi/queens_solver/solver/index
+   /autoapi/queens_solver/validator/index
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   queens_solver.run
+
+
+Package Contents
+----------------
+
+.. py:function:: run(*args, **kwargs)
+
+   Run the complete Queens puzzle solving pipeline.
+
+   Parses the board, solves it with integer linear programming,
+   validates the solution in-browser, then prints the result.
+
+   :param \*args: Positional arguments forwarded to
+                  ``parse_queens_game``.
+   :param \*\*kwargs: Keyword arguments forwarded to
+                      ``parse_queens_game``.
+
+
