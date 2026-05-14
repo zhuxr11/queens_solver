@@ -70,7 +70,7 @@ dynamic_version_links = async function () {
     const dev_message_link = document.querySelector('p > strong > a');
     // Resolve relative href to absolute URL
     const dev_message_abs_link = new URL(dev_message_link.getAttribute("href"), window.location.href);
-    const latest_release_branch = dev_message_abs_link.pathname.split("/")[1];
+    const latest_release_branch = dev_message_abs_link.pathname.split("/")[2];
     if (dev_message_link) {
         const current_url_no_anchor = window.location.href.split('#')[0];
         const new_url = current_url_no_anchor.replace(regex, `/${latest_release_branch}/`);
