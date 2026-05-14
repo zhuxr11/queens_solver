@@ -1,3 +1,9 @@
+## v0.1.18 (2026-05-14)
+
+### Fix
+
+- **docs.conf**: print fetched branches and tags.
+
 ## v0.1.17 (2026-05-14)
 
 ### Fix
