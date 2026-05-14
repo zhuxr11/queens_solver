@@ -1,3 +1,9 @@
+## v0.1.21 (2026-05-14)
+
+### Fix
+
+- **docs.js.dynamic_version_links**: fix index in resolving "latest_release_branch".
+
 ## v0.1.20 (2026-05-14)
 
 ### Fix
