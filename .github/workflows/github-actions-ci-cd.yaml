@@ -218,6 +218,9 @@ jobs:
           fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Fetch all branches
+        run: git fetch --prune origin '+refs/heads/*:refs/remotes/origin/*'
+
       - name: Setup uv
         uses: astral-sh/setup-uv@v8.1.0
 
