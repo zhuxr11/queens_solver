@@ -1,3 +1,9 @@
+## v0.1.17 (2026-05-14)
+
+### Fix
+
+- **docs.conf**: set "smv_prefer_remote_refs" to True, so that actions may detect all branches and tags from remote.
+
 ## v0.1.16 (2026-05-14)
 
 ### Fix
