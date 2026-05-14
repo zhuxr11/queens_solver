@@ -38,6 +38,7 @@ install-playwright-browsers = "queens_solver.setup:install_playwright_browsers"
 [project.urls]
 Homepage = "https://github.com/zhuxr11/queens_solver"
 Issues = "https://github.com/zhuxr11/queens_solver/issues"
+Documentation = "https://zhuxr11.github.io/queens_solver"
 
 [tool.commitizen]
 name = "cz_conventional_commits"
