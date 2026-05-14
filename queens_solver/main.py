@@ -15,9 +15,9 @@ def run(*args, **kwargs) -> None:
     validates the solution in-browser, then prints the result.
 
     Args:
-        *args: Positional arguments forwarded to
+        \*args: Positional arguments forwarded to
             ``parse_queens_game``.
-        **kwargs: Keyword arguments forwarded to
+        \*\*kwargs: Keyword arguments forwarded to
             ``parse_queens_game``.
     """
     with sync_playwright() as p:
@@ -63,8 +63,8 @@ def mark_ndarray(x: int, marker: str = "*", offset: int = 0) -> str:
 
     Args:
         x: Integer value to format.
-        marker: Character used to mark queen positions. Defaults to
-            ``"*"``.
+        marker: Character used to mark queen positions. Defaults
+            to ``"*"``.
         offset: Value added to the displayed absolute value. Defaults
             to ``0``.
 

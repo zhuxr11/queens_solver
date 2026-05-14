@@ -16,8 +16,7 @@ def validate_queens_game(
     Currently supports the LinkedIn Queens backend only.
 
     Args:
-        solution: Binary solution matrix. Nonzero entries indicate queen
-            positions.
+        solution: Binary solution matrix. Nonzero entries indicate queen positions.
         page: Page instance of the Queens game page to validate against.
         mode: Validation backend. Defaults to ``"linkedin"``.
 
@@ -54,8 +53,7 @@ def validate_queens_game_linkedin(
     place queens, then checks for the success/confetti screen.
 
     Args:
-        solution: Binary solution matrix. Nonzero entries indicate
-            queen positions.
+        solution: Binary solution matrix. Nonzero entries indicate queen positions.
         page: Page instance of the LinkedIn Queens game page.
         logger: Logger for progress and debug messages.
 
