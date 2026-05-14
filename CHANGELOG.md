@@ -1,3 +1,9 @@
+## v0.1.14 (2026-05-14)
+
+### Fix
+
+- **.github.workflows.github-actions-ci-cd**: Fix "check_tag" when there are no tags (e.g. initial commit).
+
 ## v0.1.13 (2026-05-11)
 
 ### Refactor
