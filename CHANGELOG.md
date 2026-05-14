@@ -2,13 +2,13 @@
 
 ### Fix
 
-- **docs.conf**: print fetched branches and tags.
+- **docs.conf**: Print fetched branches and tags.
 
 ## v0.1.17 (2026-05-14)
 
 ### Fix
 
-- **docs.conf**: set "smv_prefer_remote_refs" to True, so that actions may detect all branches and tags from remote.
+- **docs.conf**: Set "smv_prefer_remote_refs" to True, so that actions may detect all branches and tags from remote.
 
 ## v0.1.16 (2026-05-14)
 

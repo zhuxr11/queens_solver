@@ -240,6 +240,8 @@ jobs:
       - name: Sphinx build
         run: |
           uv run sphinx-multiversion docs/ docs/_build/
+          # Link index page from master branch
+          ln -s docs/_build/master/index.html docs/_build/index.html
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
