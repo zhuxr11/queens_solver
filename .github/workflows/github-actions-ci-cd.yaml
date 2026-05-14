@@ -219,7 +219,14 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Fetch all branches
-        run: git fetch --prune origin '+refs/heads/*:refs/remotes/origin/*'
+        run: |
+          git config remote.origin.fetch '+refs/heads/*:refs/remotes/origin/*'
+          git fetch --prune origin
+
+      - name: Print fetched branches and tags
+        run: |
+          git branch -a
+          git tag
 
       - name: Setup uv
         uses: astral-sh/setup-uv@v8.1.0

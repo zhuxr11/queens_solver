@@ -808,7 +808,7 @@ wheels = [
 
 [[package]]
 name = "queens-slvr"
-version = "0.1.16"
+version = "0.1.17"
 source = { editable = "." }
 dependencies = [
     { name = "beautifulsoup4" },
