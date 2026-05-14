@@ -1,3 +1,9 @@
+## v0.1.19 (2026-05-14)
+
+### Fix
+
+- **docs.conf**: Link index page from master branch to index page of github pages.
+
 ## v0.1.18 (2026-05-14)
 
 ### Fix
