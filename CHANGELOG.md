@@ -1,3 +1,9 @@
+## v0.1.22 (2026-05-14)
+
+### Fix
+
+- **docs.conf**: Change napoleon docstring style from numpy to google.
+
 ## v0.1.21 (2026-05-14)
 
 ### Fix
