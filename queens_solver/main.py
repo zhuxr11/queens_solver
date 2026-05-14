@@ -63,8 +63,10 @@ def mark_ndarray(x: int, marker: str = "*", offset: int = 0) -> str:
 
     Args:
         x: Integer value to format.
+
         marker: Character used to mark queen positions. Defaults
             to ``"*"``.
+
         offset: Value added to the displayed absolute value. Defaults
             to ``0``.
 

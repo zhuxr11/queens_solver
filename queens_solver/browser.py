@@ -19,6 +19,7 @@ def open_queens_game(
     Args:
         p: Active Playwright instance from ``sync\_playwright()``.
         mode: Backend to use. Defaults to ``"linkedin"``.
+
         \*\*kwargs: Additional keyword arguments forwarded to the
             backend-specific implementation (e.g. ``url``).
 
@@ -54,8 +55,9 @@ def open_queens_game_linkedin(
     Args:
         p: Active Playwright synchronous API instance.
         logger: Logger for progress and debug messages.
-        url: URL of the LinkedIn Queens game page. Defaults
-            to ``"https://linkedin.com/games/view/queens/desktop"``.
+
+        url: URL of the LinkedIn Queens game page. Defaults to
+            ``"https://linkedin.com/games/view/queens/desktop"``.
 
     Returns:
         Playwright ``Page`` object for the active game page after
