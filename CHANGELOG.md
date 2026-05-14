@@ -1,3 +1,9 @@
+## v0.1.15 (2026-05-14)
+
+### Fix
+
+- **.github.workflows.github-actions-ci-cd**: Add "docs" (updating documentation) to actions.
+
 ## v0.1.14 (2026-05-14)
 
 ### Fix
