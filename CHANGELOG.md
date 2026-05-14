@@ -1,3 +1,10 @@
+## v0.1.16 (2026-05-14)
+
+### Fix
+
+- **.github.workflows.github-actions-ci-cd**: Update “peaceiris/actions-gh-pages” （v3 to v4).
+- **.github.workflows.github-actions-ci-cd**: Fetch all branches and tags before building docs.
+
 ## v0.1.15 (2026-05-14)
 
 ### Fix
