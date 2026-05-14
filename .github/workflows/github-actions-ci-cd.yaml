@@ -119,6 +119,11 @@ jobs:
           git fetch origin --tags
           # Get the latest tag that starts with 'v'
           TAG=$(git tag --sort=-creatordate | grep '^v' | head -n1)
+          # Exit cleanly if no matching tag exists
+          if [ -z "$TAG" ]; then
+            echo "No tags starting with 'v' found."
+            exit 0
+          fi
           # Get commit hash for this tag
           TAG_COMMIT=$(git rev-list -n 1 $TAG)
           # Get current HEAD commit hash
