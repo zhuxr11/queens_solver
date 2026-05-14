@@ -17,7 +17,7 @@ def open_queens_game(
     initializes a Queens game page. Currently supports LinkedIn only.
 
     Args:
-        p: Active Playwright instance from ``sync\_playwright()``.
+        p: Active Playwright instance from ``sync_playwright()``.
         mode: Backend to use. Defaults to ``"linkedin"``.
 
         \*\*kwargs: Additional keyword arguments forwarded to the
